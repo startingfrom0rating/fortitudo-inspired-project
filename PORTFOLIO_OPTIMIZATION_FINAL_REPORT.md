@@ -9,12 +9,13 @@ This report presents a comprehensive analysis of the Fortitudo-inspired portfoli
 1. [Mathematical Framework](#mathematical-framework)
 2. [Optimization Problem Formulation](#optimization-problem-formulation)
 3. [Optimal Portfolio Analysis](#optimal-portfolio-analysis)
-4. [Risk Metrics and Performance](#risk-metrics-and-performance)
-5. [Asset Allocation Recommendations](#asset-allocation-recommendations)
-6. [Technical Implementation](#technical-implementation)
-7. [Visualizations and Charts](#visualizations-and-charts)
-8. [Conclusions](#conclusions)
-9. [References and Code Citations](#references-and-code-citations)
+4. [Comprehensive Holdings Data](#comprehensive-holdings-data)
+5. [Risk Metrics and Performance](#risk-metrics-and-performance)
+6. [Asset Allocation Recommendations](#asset-allocation-recommendations)
+7. [Technical Implementation](#technical-implementation)
+8. [Visualizations and Charts](#visualizations-and-charts)
+9. [Conclusions](#conclusions)
+10. [References and Code Citations](#references-and-code-citations)
 
 ---
 
@@ -137,6 +138,27 @@ The optimization uses CVXOPT's quadratic programming solver with:
 
 *Note: BIL is classified as equity in the system but represents T-Bills.
 
+**📋 Complete Holdings Data**: For detailed analysis of all 30 positions with meaningful allocations, see [DETAILED_PORTFOLIO_HOLDINGS_TABLES.md](DETAILED_PORTFOLIO_HOLDINGS_TABLES.md) which includes:
+- Complete portfolio holdings table (all 30 positions)
+- Top 50 holdings analysis (complete since only 30 have meaningful weights)
+- Separate equity and bond holdings breakdowns
+- Sector allocation analysis
+- Position size distribution statistics
+
+### Portfolio Composition Details
+
+The optimization resulted in 30 meaningful positions (>0.0001% allocation) out of 120 total instruments:
+
+| Position Size Range | Count | Total Weight | Description |
+|-------------------|-------|-------------|-------------|
+| 3.5-4.0% | 21 | 84.00% | At or near maximum constraint |
+| 3.0-3.5% | 1 | 3.34% | Large positions |
+| 2.5-3.0% | 1 | 2.70% | Medium-large positions |
+| 2.0-2.5% | 3 | 6.73% | Medium positions |
+| 1.0-1.5% | 2 | 2.14% | Small-medium positions |
+| 0.5-1.0% | 1 | 0.64% | Small positions |
+| 0.1-0.5% | 1 | 0.45% | Very small positions |
+
 ### Key Observations
 
 1. **Maximum diversification**: All top holdings at the 4% position limit
@@ -172,6 +194,80 @@ The optimized portfolio demonstrates:
 - **Volatility range**: 1.410% to 2.168% (monthly)
 - **Return range**: Various target levels up to 1.365% (monthly)
 - **Optimal selection**: Best Sharpe ratio with risk cap compliance
+
+---
+
+## Comprehensive Holdings Data
+
+### Complete Portfolio Holdings Summary
+
+The portfolio optimization resulted in 30 meaningful positions out of 120 total instruments, with the remaining 90 instruments receiving zero or negligible allocations. This concentrated approach reflects the optimizer's focus on the most attractive risk-adjusted opportunities.
+
+#### All Meaningful Holdings (>0.0001% allocation)
+
+| Rank | Ticker | Weight | Asset Type | Sector/Category |
+|------|--------|--------|------------|----------------|
+| 1 | SMH | 4.0000% | Equity ETF | Semiconductors |
+| 2 | XLK | 4.0000% | Equity ETF | Technology |
+| 3 | VGT | 4.0000% | Equity ETF | Technology |
+| 4 | USFR | 4.0000% | Bond ETF | Ultra Short Treasury |
+| 5 | JPST | 4.0000% | Bond ETF | Ultra Short Income |
+| 6 | SHV | 4.0000% | Bond ETF | Short Treasury |
+| 7 | BIL | 4.0000% | Equity ETF | Treasury Bills |
+| 8 | VTIP | 4.0000% | Bond ETF | Short-Term TIPS |
+| 9 | QQQ | 4.0000% | Equity ETF | Technology (NASDAQ) |
+| 10 | VGSH | 4.0000% | Bond ETF | Short Government |
+| 11 | SHY | 4.0000% | Bond ETF | Short Treasury |
+| 12 | XLU | 4.0000% | Equity ETF | Utilities |
+| 13 | BSV | 4.0000% | Bond ETF | Short-Term Corporate |
+| 14 | JEPI | 4.0000% | Bond ETF | Equity Premium Income |
+| 15 | IGSB | 4.0000% | Bond ETF | Short IG Corporate |
+| 16 | FTSL | 4.0000% | Equity ETF | First Trust Technology |
+| 17 | VCSH | 4.0000% | Bond ETF | Short Corporate |
+| 18 | IWF | 4.0000% | Equity ETF | Russell 1000 Growth |
+| 19 | VIG | 4.0000% | Equity ETF | Dividend Growth |
+| 20 | TIP | 4.0000% | Bond ETF | TIPS |
+| 21 | GOVT | 4.0000% | Bond ETF | Government Bonds |
+| 22 | MTUM | 3.3408% | Equity ETF | Momentum Factor |
+| 23 | XLF | 2.7034% | Equity ETF | Financials |
+| 24 | EWT | 2.4526% | Equity ETF | Taiwan |
+| 25 | ITA | 2.2468% | Equity ETF | Aerospace & Defense |
+| 26 | XLV | 2.0329% | Equity ETF | Healthcare |
+| 27 | MCHI | 1.0767% | Equity ETF | China |
+| 28 | VUG | 1.0590% | Equity ETF | Large Growth |
+| 29 | BNDX | 0.6387% | Bond ETF | International Bonds |
+| 30 | INDA | 0.4490% | Equity ETF | India |
+
+### Sector Allocation Breakdown
+
+| Sector/Category | Total Weight | Number of Holdings |
+|----------------|-------------|-------------------|
+| Technology | 16.00% | 4 |
+| Short Duration Bonds | 28.00% | 7 |
+| Utilities | 4.00% | 1 |
+| Financials | 2.70% | 1 |
+| Healthcare | 2.03% | 1 |
+| Aerospace & Defense | 2.25% | 1 |
+| International Equity | 3.99% | 3 |
+| TIPS/Inflation Protection | 8.00% | 2 |
+| Other Equity Factors | 12.93% | 4 |
+| Government Bonds | 4.64% | 2 |
+| Corporate Bonds | 16.00% | 4 |
+
+### Asset Allocation by Category
+
+| Category | Allocation | Positions | Key Holdings |
+|----------|------------|-----------|--------------|
+| **Technology** | 20.00% | 5 | SMH (4%), XLK (4%), VGT (4%), QQQ (4%), FTSL (4%) |
+| **Short-Term Bonds** | 36.00% | 9 | USFR, JPST, SHV, VTIP, VGSH, SHY, BSV, VCSH, GOVT |
+| **Financial Sector** | 2.70% | 1 | XLF (2.70%) |
+| **Utilities** | 4.00% | 1 | XLU (4%) |
+| **Healthcare** | 2.03% | 1 | XLV (2.03%) |
+| **International** | 3.99% | 3 | EWT (2.45%), MCHI (1.08%), INDA (0.45%) |
+| **Growth/Momentum** | 8.39% | 3 | MTUM (3.34%), IWF (4%), VUG (1.06%) |
+| **Other Specialized** | 14.89% | 7 | Various factors, sectors, and specialized ETFs |
+
+**📋 For complete detailed breakdowns including equity-only and bond-only tables, see [DETAILED_PORTFOLIO_HOLDINGS_TABLES.md](DETAILED_PORTFOLIO_HOLDINGS_TABLES.md)**
 
 ---
 
