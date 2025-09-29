@@ -1,0 +1,16 @@
+ticker,name,currency,group,duration_target,weight_cap,expense_ratio
+SHY,iShares 1-3 Year Treasury Bond ETF,USD,Short-Term Treasury,2,0.40,0.15
+IEI,iShares 3-7 Year Treasury Bond ETF,USD,Intermediate Treasury,5,0.40,0.15
+IEF,iShares 7-10 Year Treasury Bond ETF,USD,Intermediate Treasury,8,0.40,0.15
+TLT,iShares 20+ Year Treasury Bond ETF,USD,Long-Term Treasury,18,0.30,0.15
+GOVT,iShares U.S. Treasury Bond ETF,USD,Treasury Blend,6,0.50,0.15
+SGOV,iShares 0-3 Month Treasury Bond ETF,USD,Cash Equivalent,0.1,0.30,0.09
+SCHO,Schwab Short-Term U.S. Treasury ETF,USD,Short-Term Treasury,2,0.40,0.05
+SCHR,Schwab Intermediate-Term U.S. Treasury ETF,USD,Intermediate Treasury,4,0.40,0.05
+SCHZ,Schwab U.S. Aggregate Bond ETF,USD,Aggregate Bond,6,0.50,0.04
+VTEB,Vanguard Tax-Exempt Bond ETF,USD,Municipal Bonds,6,0.25,0.05
+VGIT,Vanguard Intermediate-Term Treasury ETF,USD,Intermediate Treasury,5,0.40,0.04
+VGLT,Vanguard Long-Term Treasury ETF,USD,Long-Term Treasury,16,0.30,0.04
+VGSH,Vanguard Short-Term Treasury ETF,USD,Short-Term Treasury,2,0.40,0.04
+BIL,SPDR Bloomberg 1-3 Month T-Bill ETF,USD,Cash Equivalent,0.2,0.30,0.14
+SHV,iShares Short Treasury Bond ETF,USD,Cash Equivalent,0.3,0.30,0.15

@@ -1,0 +1,21 @@
+ticker,name,currency,group,weight_cap,expense_ratio
+SPY,SPDR S&P 500 ETF Trust,USD,Large Cap US Equity,0.30,0.095
+IVV,iShares Core S&P 500 ETF,USD,Large Cap US Equity,0.30,0.03
+VTI,Vanguard Total Stock Market ETF,USD,US Total Market,0.35,0.03
+ITOT,iShares Core S&P Total US Stock Market ETF,USD,US Total Market,0.35,0.03
+IEFA,iShares Core MSCI EAFE IMI Index ETF,USD,International Developed,0.25,0.07
+IEMG,iShares Core MSCI Emerging Markets IMI Index ETF,USD,Emerging Markets,0.15,0.11
+VEA,Vanguard FTSE Developed Markets ETF,USD,International Developed,0.25,0.05
+VWO,Vanguard FTSE Emerging Markets ETF,USD,Emerging Markets,0.15,0.08
+IUSG,iShares Core S&P U.S. Growth ETF,USD,US Growth,0.20,0.04
+IUSV,iShares Core S&P U.S. Value ETF,USD,US Value,0.20,0.04
+IJH,iShares Core S&P Mid-Cap ETF,USD,Mid Cap US Equity,0.15,0.05
+IJR,iShares Core S&P Small-Cap ETF,USD,Small Cap US Equity,0.10,0.06
+VB,Vanguard Small-Cap ETF,USD,Small Cap US Equity,0.10,0.05
+VO,Vanguard Mid-Cap ETF,USD,Mid Cap US Equity,0.15,0.04
+VUG,Vanguard Growth ETF,USD,US Growth,0.20,0.04
+VTV,Vanguard Value ETF,USD,US Value,0.20,0.04
+SCHX,Schwab U.S. Large-Cap ETF,USD,Large Cap US Equity,0.30,0.03
+SCHA,Schwab U.S. Small-Cap ETF,USD,Small Cap US Equity,0.10,0.04
+SCHM,Schwab U.S. Mid-Cap ETF,USD,Mid Cap US Equity,0.15,0.04
+SCHF,Schwab International Equity ETF,USD,International Developed,0.25,0.06
