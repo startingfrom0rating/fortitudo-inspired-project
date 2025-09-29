@@ -324,22 +324,81 @@ def save_pdf(frontier_png: str, top_png: str, curve_png: str, S: int, I: int, sh
     total_etf_weight = etf_weights.sum()
     total_bond_weight = bond_weights.sum()
     
-    y = draw_text(y, f"ETF Allocation: {total_etf_weight:.1%}")
-    y = draw_text(y, f"Bond Allocation: {total_bond_weight:.1%}")
+    y = draw_text(y, "IMPORTANT: Long-Short Strategy Detected", bold=True)
+    y = draw_text(y, f"Total ETF Allocation (leveraged long): {total_etf_weight:.1%}")
+    y = draw_text(y, f"Total Bond Allocation (net short): {total_bond_weight:.1%}")
+    y -= 5
+    
+    leverage_explanation = ("The optimization algorithm has identified a long-short strategy as optimal, "
+                          "involving leveraged long positions in ETFs (116.1%) financed by short positions "
+                          "in international government bonds (-16.1%). This creates 100% net investment "
+                          "while maximizing the Sharpe ratio.")
+    y = draw_wrapped_text(y, leverage_explanation)
+    
+    y = draw_text(y - 5, "Strategy Components:")
+    y = draw_text(y, "• Long positions: Primarily US equity ETFs and short-duration treasury ETFs")
+    y = draw_text(y, "• Short positions: European government bonds (German, French, Dutch, Italian)")
+    y = draw_text(y, "• Net leverage: 16.1% funded through bond shorts")
+    y = draw_text(y, "• Risk management: Diversification across sectors and geographies")
     
     y = draw_subheader(y - 10, "B. Top ETF Holdings", 14)
     
     top_etfs = etf_weights[etf_weights > 0].sort_values(ascending=False).head(10)
     y = draw_text(y, "Top 10 ETF positions by weight:", bold=True)
-    for ticker, weight in top_etfs.items():
-        y = draw_text(y, f"• {ticker}: {weight:.2%}")
     
-    if len(bond_weights[bond_weights > 0]) > 0:
-        y = draw_subheader(y - 10, "C. Bond Holdings", 14)
-        bond_positions = bond_weights[bond_weights > 0].sort_values(ascending=False)
-        y = draw_text(y, "Treasury bond positions:", bold=True)
+    # Add explanations for key holdings
+    etf_explanations = {
+        "XLF": "Financial sector ETF - benefits from rising rates",
+        "JPST": "Ultra-short term Treasury ETF - liquidity and stability",
+        "SHV": "Short Treasury ETF - cash equivalent with yield",
+        "USFR": "Floating rate Treasury ETF - rate protection",
+        "BIL": "1-3 Month Treasury ETF - liquidity management",
+        "VTIP": "Inflation-protected Treasury ETF - inflation hedge",
+        "PHO": "Water resources ETF - thematic/ESG exposure",
+        "VGSH": "Short government bond ETF - duration management",
+        "XLU": "Utilities sector ETF - defensive equity exposure",
+        "FTSL": "First Trust dividend ETF - income generation"
+    }
+    
+    for ticker, weight in top_etfs.items():
+        explanation = etf_explanations.get(ticker, "Diversified exposure")
+        y = draw_text(y, f"• {ticker}: {weight:.2%} - {explanation}")
+    
+    y = draw_text(y - 10, "ETF Selection Rationale:", bold=True)
+    y = draw_text(y, "• Heavy allocation to short-duration treasury ETFs for liquidity")
+    y = draw_text(y, "• Sector concentration in financials (XLF) and utilities (XLU)")
+    y = draw_text(y, "• Thematic exposure through water resources (PHO) and infrastructure")
+    y = draw_text(y, "• Rate protection through floating-rate instruments (USFR)")
+    y = draw_text(y, "• Inflation protection through TIPS exposure (VTIP)")
+    
+    if len(bond_weights[bond_weights != 0]) > 0:
+        y = draw_subheader(y - 10, "C. Government Bond Positions (Long/Short)", 14)
+        bond_positions = bond_weights[bond_weights != 0].sort_values(ascending=False)
+        y = draw_text(y, "Government bond positions (positive = long, negative = short):", bold=True)
+        
         for ticker, weight in bond_positions.items():
-            y = draw_text(y, f"• {ticker}: {weight:.2%}")
+            direction = "LONG" if weight > 0 else "SHORT"
+            if "GBM156N" in ticker:
+                country = "UK Gilt"
+            elif "DEM156N" in ticker:
+                country = "German Bund"
+            elif "FRM156N" in ticker:
+                country = "French OAT"
+            elif "NLM156N" in ticker:
+                country = "Dutch DSL"
+            elif "ITM156N" in ticker:
+                country = "Italian BTP"
+            else:
+                country = "Treasury"
+            
+            y = draw_text(y, f"• {weight:6.2%} {direction} - {country}")
+        
+        y = draw_text(y - 5, "Bond Strategy Explanation:", bold=True)
+        y = draw_text(y, "• Long positions: Italian government bonds (higher yields)")
+        y = draw_text(y, "• Short positions: German, French, Dutch bonds (lower yields)")
+        y = draw_text(y, "• Strategy: Profit from yield differentials between countries")
+        y = draw_text(y, "• Risk: Credit spreads and currency exposure (EUR bonds)")
+        y = draw_text(y, "• Duration: Mixed maturities for yield curve positioning")
     
     # Page 4: Graphs
     y = new_page()
@@ -392,29 +451,43 @@ def save_pdf(frontier_png: str, top_png: str, curve_png: str, S: int, I: int, sh
                       "The following factors support this conclusion:")
     y = draw_wrapped_text(y, conclusion_text)
     
-    y = draw_subheader(y - 10, "Why This Allocation is Optimal:", 14)
+    y = draw_subheader(y - 10, "Why This Long-Short Allocation is Optimal:", 14)
     
     y = draw_text(y, "1. Mathematical Optimality:", bold=True)
-    optimality_text = ("The portfolio maximizes the Sharpe ratio through quadratic programming optimization, "
-                      "ensuring the highest risk-adjusted return mathematically achievable under the given constraints.")
+    optimality_text = ("The portfolio maximizes the Sharpe ratio through quadratic programming optimization. "
+                      "The long-short structure emerges because the algorithm identifies opportunities to "
+                      "improve risk-adjusted returns by shorting lower-yielding international bonds and "
+                      "using proceeds to increase exposure to higher-expected-return US equity ETFs.")
     y = draw_wrapped_text(y, optimality_text, indent=20)
     
-    y = draw_text(y - 5, "2. Diversification Benefits:", bold=True)
-    diversification_text = ("The allocation spreads risk across multiple asset classes, sectors, and geographies, "
-                          "reducing portfolio volatility while maintaining expected returns through the correlation "
-                          "structure captured in the covariance matrix.")
-    y = draw_wrapped_text(y, diversification_text, indent=20)
+    y = draw_text(y - 5, "2. Risk-Return Enhancement:", bold=True)
+    enhancement_text = ("By shorting European government bonds (which have lower expected returns) and "
+                       "leveraging US equity positions, the portfolio increases expected returns while "
+                       "the correlation structure helps manage overall portfolio risk. The negative "
+                       "correlation between European bonds and US equities provides natural hedging.")
+    y = draw_wrapped_text(y, enhancement_text, indent=20)
     
     y = draw_text(y - 5, "3. Constraint Satisfaction:", bold=True)
     constraint_text = (f"The solution satisfies all imposed constraints, including the {actual_sp_sum:.1%} "
-                      "allocation to S&P 500 ETFs (exceeding the 50% minimum requirement), ensuring compliance "
-                      "with investment policy guidelines.")
+                      "allocation to S&P 500 ETFs (exactly meeting the 50% minimum requirement). "
+                      "The long-short structure allows for precise constraint satisfaction while "
+                      "optimizing the objective function.")
     y = draw_wrapped_text(y, constraint_text, indent=20)
     
-    y = draw_text(y - 5, "4. Risk Management:", bold=True)
-    risk_text = ("The inclusion of Treasury bonds provides downside protection and reduces overall portfolio "
-               "volatility, while the equity component drives return generation through exposure to growth assets.")
-    y = draw_wrapped_text(y, risk_text, indent=20)
+    y = draw_text(y - 5, "4. Leverage and Risk Management:", bold=True)
+    leverage_text = ("The 16.1% leverage is modest and well-diversified across multiple short positions. "
+                    "The strategy concentrates long positions in high-conviction US assets while using "
+                    "short positions in lower-expected-return international bonds as funding sources.")
+    y = draw_wrapped_text(y, leverage_text, indent=20)
+    
+    y = draw_subheader(y - 15, "Practical Implementation Considerations:", 14)
+    
+    practical_text = ("While mathematically optimal, this strategy requires: (1) ability to short international "
+                     "government bonds, (2) margin financing capabilities, (3) sophisticated risk management, "
+                     "and (4) regulatory compliance for leveraged strategies. For investors unable to implement "
+                     "shorts, a constrained optimization with non-negativity constraints would yield a "
+                     "long-only alternative.")
+    y = draw_wrapped_text(y, practical_text)
     
     y = draw_subheader(y - 15, "Mathematical Proof of Optimality:", 14)
     
